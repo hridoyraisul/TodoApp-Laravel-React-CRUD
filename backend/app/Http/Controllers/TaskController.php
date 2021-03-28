@@ -18,7 +18,12 @@ class TaskController extends Controller
         return response()->json(Task::all(),200);
     }
     public function addTask(Request $request){
-        Task::create($request->all());
+        Task::create([
+            'title' => $request->title,
+            'detail' => $request->detail,
+            'schedule' => $request->schedule,
+            'user_id' => $request->user_id
+        ]);
         return response(['status'=>true],201);
     }
     public function deleteTask($id){
