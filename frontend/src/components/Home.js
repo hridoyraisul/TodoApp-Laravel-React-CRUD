@@ -27,9 +27,9 @@ class Home extends Component{
                   alert(response.data.error_msg)
               }
           })
-          .catch(e => {
-            alert(e.response.status === 500 ? "Login Failed" : "");
-          });
+          // .catch(e => {
+          //   alert(e.response.status === 500 ? "Login Failed" : "");
+          // });
       };
     regUser = async data => {
         this.setState({ loader: true });
@@ -42,9 +42,9 @@ class Home extends Component{
           .then(function (response) {
             alert("Registerd Successfully Done!!!")
           })
-          .catch(e => {
-            alert(e.response.status === 500 ? "Registration Failed" : "");
-          });
+          // .catch(e => {
+          //   alert(e.response.status === 500 ? "Registration Failed" : "");
+          // });
       };
     onRegFormSubmit = data => {
         if (data) {
