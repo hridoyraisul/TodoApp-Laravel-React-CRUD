@@ -4,9 +4,12 @@ import TaskForm from "./TaskForm";
 import TaskList from "./TaskList";
 import Loader from "./Loader";
 import "./app.css";
+import ReactDOM from "react-dom";
+import Home from "./Home";
 
 class App extends Component {
   state = {
+    userName: this.props.userInfo,
     tasks: [],
     loader: false,
     task: {},
@@ -37,8 +40,8 @@ class App extends Component {
         user_id: data.user_id
       })
       .catch(e => {
-        // alert(e.response.status === 500 ? "This task already exists" : "");
-        console.log(data);
+        alert(e.response.status === 500 ? "This task already exists" : "");
+        // console.log(data);
       });
     this.getTask();
   };
@@ -78,7 +81,9 @@ class App extends Component {
       this.createTask(data);
     }
   };
-
+  userLogout = () => {
+    ReactDOM.render(<Home />,  document.querySelector("#root"));
+  }
   render() {
     return (
       <div>
@@ -91,6 +96,8 @@ class App extends Component {
         </div>
 
         <div className="ui main container">
+        <button className="ui red button submit-button" onClick={this.userLogout}>Logout</button>
+        <h2 style={{textAlign: "left"}}>Hello, {this.state.userName} </h2><hr></hr>
           <TaskForm
             onFormSubmit={this.onFormSubmit}
             task={this.state.task}
