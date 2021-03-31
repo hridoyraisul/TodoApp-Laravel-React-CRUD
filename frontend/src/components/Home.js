@@ -11,8 +11,21 @@ class Home extends Component{
         loader: false,
         user: {},
       };
+      onPauseAction (){
+        this.setState({ loader: true });
+        axios.get(`http://127.0.0.1:8000/api/stop-sending`, {
+          })
+          .then(function (response){
+              if(response.data.send_status === 'paused'){
+                alert('Email Paused');
+              }
+              else{
+                  alert('Email Paused Failed');
+              }
+          })
+      }
     loginUser = async data => {
-        console.log(data);
+        // console.log(data);
         this.setState({ loader: true });
         await axios
           .post(`http://127.0.0.1:8000/api/login-user`, {
@@ -21,7 +34,8 @@ class Home extends Component{
           })
           .then(function (response){
               if(response.data.login_status === true){
-                ReactDOM.render(<App userInfo={response.data.user.name}/>,  document.querySelector("#root"));
+                ReactDOM.render(<App userInfo={response.data.user.name} userId={response.data.user.id}/>,  document.querySelector("#root"));
+                console.log(response.data.user.id);
               }
               else{
                   alert(response.data.error_msg)
@@ -77,6 +91,14 @@ class Home extends Component{
                     onLoginFormSubmit={this.onLoginFormSubmit}
                     user={this.state.user}
                     />
+                    <hr></hr>
+                    <div className="fields">
+                   <div className="two wide field">
+                    <button className="ui dark button submit-button" onClick={this.onPauseAction}>
+                        Pause Email Notify
+                    </button>
+                </div>
+                </div> 
                 </div>
             </div>
         );

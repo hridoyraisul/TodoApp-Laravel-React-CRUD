@@ -27,3 +27,7 @@ Route::get('/one-task/{id}',[\App\Http\Controllers\TaskController::class,'getOne
 Route::post('/add-new-task',[\App\Http\Controllers\TaskController::class,'addTask']);
 Route::delete('/delete-task/{id}',[\App\Http\Controllers\TaskController::class,'deleteTask']);
 Route::post('/edit-task/{id}',[\App\Http\Controllers\TaskController::class,'editTask']);
+//------------------------------Email Routes---------------------------//
+Route::get('/send-email',[\App\Http\Controllers\UserController::class,'sendMail']);
+Route::get('/pause-email',[\App\Http\Controllers\UserController::class,'pauseEmail']);
+Route::get('/stop-sending',[\App\Http\Controllers\UserController::class,'stopSendEmail']);

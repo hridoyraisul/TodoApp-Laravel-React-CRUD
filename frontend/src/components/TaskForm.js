@@ -2,7 +2,8 @@ import React, { Component } from "react";
 
 class TaskForm extends Component {
   state = {
-    form: { title: "", detail: "", schedule: "", user_id:"2", isEdit: false },
+    form: { title: "", detail: "", schedule: "", user_id: this.props.userId , isEdit: false },
+    userId: this.props.userId,
     btnName: "Add Task",
     btnClass: "ui dark button submit-button"
   };
@@ -54,7 +55,7 @@ class TaskForm extends Component {
 
   clearFormFields = () => {
     this.setState({
-      form: { title: "", detail: "", schedule: "", user_id:"2", isEdit: false }
+      form: { title: "", detail: "", schedule: "", user_id: this.state.userId, isEdit: false }
     });
     document.querySelector(".form").reset();
   };
@@ -92,6 +93,12 @@ class TaskForm extends Component {
               name="schedule"
               onChange={this.handleChange}
               value={this.state.form.schedule}
+            />
+            <input
+            type="hidden"
+            name="user_id"
+            onChange={this.handleChange}
+            value={this.state.userId}
             />
           </div>
 

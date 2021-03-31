@@ -10,10 +10,11 @@ import Home from "./Home";
 class App extends Component {
   state = {
     userName: this.props.userInfo,
+    user_id: this.props.userId,
     tasks: [],
     loader: false,
     task: {},
-    url: "http://127.0.0.1:8000/api/users-task-list/2"
+    url: `http://127.0.0.1:8000/api/users-task-list/${this.props.userId}`
   };
 
   getTask = async () => {
@@ -40,8 +41,8 @@ class App extends Component {
         user_id: data.user_id
       })
       .catch(e => {
-        alert(e.response.status === 500 ? "This task already exists" : "");
-        // console.log(data);
+        alert(e.response.status === 500 ? e.message : "");
+        console.log(data);
       });
     this.getTask();
   };
@@ -53,7 +54,8 @@ class App extends Component {
       .post(`http://127.0.0.1:8000/api/edit-task/${data.id}`, {
         title: data.title,
         detail: data.detail,
-        schedule: data.schedule
+        schedule: data.schedule,
+        user_id: data.user_id
       })
       .catch(e => {
         console.log(e.message);
@@ -101,6 +103,7 @@ class App extends Component {
           <TaskForm
             onFormSubmit={this.onFormSubmit}
             task={this.state.task}
+            userId={this.state.userId}
           />
           {this.state.loader ? <Loader /> : ""}
          <hr></hr><h2 style={{textAlign: "center"}}>Todo List:</h2><hr></hr>
